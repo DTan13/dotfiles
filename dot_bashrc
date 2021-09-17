@@ -7,3 +7,5 @@
 
 PS1='[\u@\h \W]\$ '
 
+# Hope bash will not be necessary 
+zsh
