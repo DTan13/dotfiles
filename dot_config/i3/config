@@ -176,7 +176,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 #
 # Special system mode
-set $mode_system System (l) lock, (e) logout, (s) suspend, (p) poweroff
+set $mode_system System (l) lock, (e) logout, (s) suspend, (p) poweroff, (r) reboot
 mode "$mode_system" {
   bindsym l exec --no-startup-id i3lock -c 000000, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
