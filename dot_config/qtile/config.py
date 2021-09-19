@@ -64,29 +64,29 @@ keys = [
     Key([SUPER, "shift"], "space", lazy.window.toggle_floating()),
 
     Key([SUPER], "n", lazy.next_layout()),
-    
+
     # Swap panes of split stack
     Key([SUPER, "shift"], SPC, lazy.layout.rotate()),
-    
+
     # multiple stack panes
     Key([SUPER, "shift"], RET, lazy.layout.toggle_split()),
-    
+
     # Screen Shot with scrot
     Key([], PRT_SC, lazy.spawn("bash -c \"cd ~/Pictures/Screenshots/qtile;scrot\"")),
-    
+
     # applications shortcat
     Key([SUPER], RET, lazy.spawn(TERM)),
     Key([SUPER], "f", lazy.spawn(BRS)),
     Key([SUPER], "e", lazy.spawn(FileManager)),
     Key([SUPER], "t", lazy.spawn("kotatogram-desktop")),
-    
+
     Key([SUPER], "Tab", lazy.screen.next_group(skip_empty=True)),
-    Key([SUPER,"shift"], "Tab", lazy.screen.prev_group()),
+    Key([SUPER, "shift"], "Tab", lazy.screen.prev_group()),
 
     Key([SUPER], "w", lazy.window.kill()),
     Key([SUPER, CTRL], "r", lazy.restart()),
     Key([SUPER, CTRL], "q", lazy.shutdown()),
-    Key([SUPER],"m",lazy.window.cmd_toggle_maximize()),
+    Key([SUPER], "m", lazy.window.cmd_toggle_maximize()),
 
     # INCREASE/DECREASE/MUTE VOLUME
     Key([], fnUP, lazy.spawn("amixer -q set Master 5%+")),
@@ -99,11 +99,11 @@ keys = [
 
     # dmenu Run
     Key([SUPER], "d", lazy.spawn(" dmenu_run -fn 'Source Code Pro Semibold:size=13' -nb '#282a36' -nf '#fefefe' ")),
-    
+
     # locking
-    Key([SUPER], "l",lazy.spawn("lxlock")),
-    
-    ]
+    Key([SUPER], "l", lazy.spawn("lxlock")),
+    Key([SUPER], "Delete", lazy.spawn("systemctl suspend")),
+]
 
 # GROUPS
 
@@ -156,41 +156,42 @@ colors = [
 # prompt = "{0}@{1}: ".format(os.environ["USER"], socket.gethostname())
 
 ##### DEFAULT WIDGET SETTINGS #####
-widget_defaults = dict(font="Source Code Pro Semibold", fontsize=16, padding=4)
+widget_defaults = dict(font="Source Code Pro Medium", fontsize=16, padding=4)
 extension_defaults = widget_defaults.copy()
 
 ##### WIDGETS #####
+
+
 def init_widgets_list():
     widgets_list = [
-        widget.CurrentLayoutIcon(scale=0.6),
-        widget.CurrentLayout(max_chars=3,markup=False,foreground=colors[2], background=colors[0]),
+        widget.CurrentLayoutIcon(scale=0.75),
         widget.Sep(linewidth=0, padding=5,
                    foreground=colors[2], background=colors[0]),
-        widget.GroupBox(disable_drag=True,highlight_method="block", inactive="999999"),
+        widget.GroupBox(disable_drag=True, highlight_method="block", inactive="999999"),
         widget.Sep(linewidth=0, padding=5,
                    foreground=colors[2], background=colors[0]),
-        widget.WindowName(format='{name}',max_chars=60),
+        widget.WindowName(format='{name}', max_chars=60),
         widget.Notify(),
         widget.CPU(format='{freq_current}GHz {load_percent}%',
-                    foreground=colors[2], background=colors[0]),
+                   foreground=colors[2], background=colors[0]),
         widget.Memory(format='{MemUsed: .0f}{mm}/{MemTotal:.0f}{mm}',
-                    foreground=colors[2], background=colors[0]),
+                      foreground=colors[2], background=colors[0]),
         widget.Sep(linewidth=0, padding=4,
                    foreground=colors[2], background=colors[0]),
-        widget.Net(format='{down} ↓↑ {up}',foreground=colors[2],background=colors[0]),
-        widget.Sep(linewidth=0,padding=4,
-                    foreground=colors[2],background=colors[0]),
-        widget.TextBox(text=" Vol:", padding=1 ),
+        widget.Net(format='{down} ↓↑ {up}', foreground=colors[2], background=colors[0]),
+        widget.Sep(linewidth=0, padding=4,
+                   foreground=colors[2], background=colors[0]),
+        widget.TextBox(text=" Vol:", padding=1),
         widget.Volume(padding=5),
         widget.Sep(linewidth=0, padding=4,
                    foreground=colors[2], background=colors[0]),
-        widget.Battery(energy_now_file = "charge_now",
-                                energy_full_file = "charge_full",
-                                power_now_file = "current_now",
-                                update_delay = 1,
-                                foreground = colors[2],
-                                charge_char = u'↑',
-                                discharge_char = u'↓',),
+        widget.Battery(energy_now_file="charge_now",
+                       energy_full_file="charge_full",
+                       power_now_file="current_now",
+                       update_delay=1,
+                       foreground=colors[2],
+                       charge_char=u'↑',
+                       discharge_char=u'↓',),
         widget.Sep(linewidth=0, padding=4,
                    foreground=colors[2], background=colors[0]),
         widget.Backlight(backlight_name="intel_backlight", change_command=None, step=1),
@@ -266,35 +267,17 @@ main = None
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-
-##### FLOATING WINDOWS #####
-floating_layout = layout.Floating(
-    float_rules=[
-        {"wmclass": "confirm"},
-        {"wmclass": "dialog"},
-        {"wmclass": "download"},
-        {"wmclass": "error"},
-        {"wmclass": "file_progress"},
-        {"wmclass": "notification"},
-        {"wmclass": "splash"},
-        {"wmclass": "toolbar"},
-        {"wmclass": "confirmreset"},  # gitk
-        {"wmclass": "makebranch"},  # gitk
-        {"wmclass": "maketag"},  # gitk
-        {"wname": "branchdialog"},  # gitk
-        {"wname": "pinentry"},  # GPG key password entry
-        {"wmclass": "ssh-askpass"},  # ssh-askpass
-    ]
-)
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 
 ##### STARTUP APPLICATIONS #####
 
+
 @hook.subscribe.startup_once
 def start_once():
     home = os.path.expanduser("~")
     subprocess.call([home + "/.config/qtile/autostart.sh"])
+
 
 # If things like steam games want to auto-minimize themselves when losing
 # focus, should we respect this or not?
