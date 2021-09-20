@@ -102,12 +102,12 @@ Plug 'steelsojka/completion-buffers'
 let g:completion_word_min_length = 1
 
 let g:completion_chain_complete_list = {
-			\ 'default': [
-				\    {'complete_items': ['lsp', 'buffers' ]},
-				\    {'mode': '<c-p>'},
-				\    {'mode': '<c-n>'}
-				\]
-				\}
+\ 'default': [
+	\    {'complete_items': ['lsp', 'buffers' ]},
+	\    {'mode': '<c-p>'},
+	\    {'mode': '<c-n>'}
+	\]
+	\}
 
 " Use <Tab> and <S-Tab> to navigate through popup menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"

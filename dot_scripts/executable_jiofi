@@ -1,0 +1,14 @@
+#/bin/bash
+
+final=""
+batteryvalueus=""
+
+if [[ "$(nmcli n c)" == "none" ]]; then
+    final="Not Connected"
+else
+    batteryvalueus=$(curl -s http://jiofi.local.html | grep battery)
+    final+=$(echo $batteryvalueus | egrep -o '[[:digit:]]{1,3}%')
+    final+=" "
+    final+=$(echo $batteryvalueus | egrep -o '[[:alpha:]]{1,4}harging')
+fi
+echo $final

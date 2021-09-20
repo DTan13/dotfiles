@@ -1,0 +1,14 @@
+#/bin/bash
+connection_status=""
+all_devices="$(nmcli d s | grep -v 'externally' | grep -w 'connected' | awk {'print $2'})"
+connection_device="$(echo $all_devices | grep -o wifi) $(echo $all_devices | grep -o ethernet)"
+if [[ "$(nmcli networking connectivity)" == "full" ]]; then
+    connection_status="full"
+elif [[ "$(nmcli networking connectivity)" == "limited" ]]; then
+    connection_status="limited"
+else
+    connection_device="network"
+    connection_status="none"
+fi
+final="$connection_status $connection_device"
+echo "$final"
