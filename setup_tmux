@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+echo "Github:- https://github.com/DTan13"
+echo "Reddit:- https://reddit.com/u/DTan13"
+echo "Telegram:- https://t.me/DTan13"
+
+if [ "$(command -v apt)" ]; then
+	echo "apt is installed"
+	echo "Installing packages using apt"
+
+	sudo apt install -y zsh tmux
+
+	mkdir ~/.tmux ~/.tmux/plugins
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+	echo "Installing oh-my-zsh"
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+	echo "Updating dotfiles"
+	cd ~
+	sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply DTan13
+	~/bin/chezmoi apply
+	cd -
+
+	echo "Changing default shell"
+	sudo chsh $(whoami) -s $(which zsh)
+elif [ "$(command -v pacman)" ]; then
+	echo "pacman is installed"
+	echo "Installing packages using pacman"
+
+	sudo pacman -Sy --noconfirm zsh tmux
+
+	mkdir ~/.tmux ~/.tmux/plugins
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+	echo "Installing oh-my-zsh"
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+	echo "Updating dotfiles"
+	cd ~
+	sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply DTan13
+	~/bin/chezmoi apply
+	cd -
+
+	echo "Changing default shell"
+	sudo chsh $(whoami) -s $(which zsh)
+elif [ "$(command -v yum)" ]; then
+	echo "yum is installed"
+	echo "Installing packages using yum"
+
+	sudo yum install -y zsh tmux
+
+	mkdir ~/.tmux ~/.tmux/plugins
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+	echo "Installing oh-my-zsh"
+	sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+	echo "Updating dotfiles"
+	cd ~
+	sh -c "$(curl -fsLS git.io/chezmoi)" -- init --apply DTan13
+	~/bin/chezmoi apply
+	cd -
+
+	echo "Changing default shell"
+	sudo chsh $(whoami) -s $(which zsh)
+else
+	echo "unable to find apt, pacman or yum"
+fi
+
+echo "Everything done."
+echo "Restart the shell"
+
+echo "After running tmux for first time use <prefix>+I to fetch plugins"
+
