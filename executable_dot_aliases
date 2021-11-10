@@ -3,4 +3,5 @@ alias q="exit"
 alias c="clear"
 alias ls="ls --color=auto"
 alias nnvim="nvim -u ~/.config/nvim/none.vim"
-alias htop="htop;clear"
+alias htop="btop;clear"
+alias nano=nvim

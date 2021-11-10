@@ -8,4 +8,18 @@
 PS1='[\u@\h \W]\$ '
 
 # Hope bash will not be necessary 
-zsh
+test -f ~/.aliases && source ~/.aliases
+
+export GOPATH="$HOME/go"
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:~/go/bin
+export PATH=$PATH:~/.local/bin
+export PATH=$PATH:~/.yarn/bin
+export PATH=$PATH:~/bin
+export PATH=$PATH:~/.cargo/bin
+
+export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
+
+export EDITOR=nvim
+export TERM=xterm-256color

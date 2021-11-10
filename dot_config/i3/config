@@ -17,7 +17,7 @@ font pango:monospace 10
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-#font pango:DejaVu Sans Mono 8
+font pango:DejaVu Sans Mono 12
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -103,7 +103,7 @@ set $ws6 "6"
 set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
-set $ws10 "0"
+set $ws10 "10"
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -181,10 +181,10 @@ bindsym $mod+Alt_R mode "$mode_system"
 
 bar {
   status_command ~/.scripts/i3net.sh
-  position top
+  position bottom
   output primary
   tray_output primary
-  font pango:Source Code Pro Medium 12
+  font pango:Source Code Pro Medium 13
   colors {
     background #282A36
     statusline #F8F8F2
@@ -217,9 +217,10 @@ client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 
 client.background       #F8F8F2
 
-bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-12' -p 'Arch Linux'"
+# bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-12' -p 'Arch Linux'"
+bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
 
-for_window [class="^.*"] border pixel 0
-exec_always --no-startup-id while [[ "$DISPLAY" != ":0" ]]; do echo "wait"; done; xrandr --output eDP-1 --scale 1.5x1.5
+for_window [class="^.*"] border pixel 1
+exec_always --no-startup-id while [[ "$DISPLAY" != ":0" ]]; do echo "wait"; done; xrandr --output eDP-1 --scale 1.7x1.7
 exec_always --no-startup-id nitrogen --set-auto ~/.local/share/wallpapers/arch.png
-
+exec_always --no-startup-id kdeconnect-indicator&
