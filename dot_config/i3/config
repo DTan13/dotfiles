@@ -13,7 +13,7 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 10
+font pango:monospace 12
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -24,7 +24,7 @@ font pango:DejaVu Sans Mono 12
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy -- maim
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -35,6 +35,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
+popup_during_fullscreen smart
+workspace_auto_back_and_forth yes
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
@@ -73,11 +75,11 @@ bindsym $mod+h split h
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+shift+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+shift+w layout tabbed
 bindsym $mod+shift+s layout toggle split
 
 # toggle tiling / floating
@@ -87,10 +89,10 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+p focus parent
 
 # focus the child container
-# bindsym $mod+d focus child
+bindsym $mod+c focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -129,8 +131,23 @@ bindsym $mod+Shift+8 move container to workspace number $ws8
 bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
+# moves focused container to workspace; also changes to that workspace
+bindsym $mod+Control+1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Control+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Control+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Control+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Control+5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+Control+6 move container to workspace number $ws6; workspace number $ws6
+bindsym $mod+Control+7 move container to workspace number $ws7; workspace number $ws7
+bindsym $mod+Control+8 move container to workspace number $ws8; workspace number $ws8
+bindsym $mod+Control+9 move container to workspace number $ws9; workspace number $ws9
+bindsym $mod+Control+0 move container to workspace number $ws10; workspace number $ws10
+
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
+
+bindsym $mod+Control+Right workspace next
+bindsym $mod+Control+Left workspace prev
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -168,7 +185,7 @@ bindsym $mod+r mode "resize"
 # Special system mode
 set $mode_system System (l) lock, (e) logout, (s) suspend, (p) poweroff, (r) reboot
 mode "$mode_system" {
-  bindsym l exec --no-startup-id i3lock -c 000000, mode "default"
+  bindsym l exec --no-startup-id i3lock-fancy -- maim, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
   bindsym s exec --no-startup-id systemctl suspend, mode "default"
   bindsym p exec --no-startup-id poweroff, mode "default"
@@ -179,12 +196,21 @@ mode "$mode_system" {
 }
 bindsym $mod+Alt_R mode "$mode_system"
 
+# The middle button and a modifer over any part of the window kills the window
+bindsym --whole-window $mod+button2 kill
+
+# The right button toggles floating
 bar {
+  bindsym button2 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
+  bindsym button3 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
+
   status_command ~/.scripts/i3net.sh
+  separator_symbol "|"
   position bottom
   output primary
   tray_output primary
   font pango:Source Code Pro Medium 13
+  strip_workspace_numbers no
   colors {
     background #282A36
     statusline #F8F8F2
@@ -199,14 +225,21 @@ bar {
 }
 
 # Brightness
-bindsym XF86MonBrightnessUp exec brightnessctl s 5%+ # increase screen brightness
-bindsym XF86MonBrightnessDown exec brightnessctl s 5%- # decrease screen brightness
+bindsym XF86MonBrightnessUp exec brightnessctl s 2%+ # increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl s 2%- # decrease screen brightness
+
+# Make the currently focused window a scratchpad
+bindsym $mod+m move scratchpad
+# Show the first scratchpad window
+bindsym $mod+Shift+m scratchpad show
 
 # Apps
-bindsym $mod+f exec brave
+bindsym $mod+w exec brave
 bindsym $mod+e exec pcmanfm
+
 # Screenshot
-bindsym Print exec cd ~/Pictures/Screenshots/i3 && scrot 
+bindsym Print exec ~/.scripts/screenshot full 
+bindsym Shift+Print exec ~/.scripts/screenshot area
 
 # class                 border  bground text    indicator child_border
 client.focused          #6272A4 #6272A4 #F8F8F2 #6272A4   #6272A4
@@ -214,13 +247,82 @@ client.focused_inactive #44475A #44475A #F8F8F2 #44475A   #44475A
 client.unfocused        #282A36 #282A36 #BFBFBF #282A36   #282A36
 client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
 client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
-
 client.background       #F8F8F2
 
-# bindsym $mod+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-12' -p 'Arch Linux'"
+bindsym $mod+Shift+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-13' -p 'Arch Linux'"
 bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
 
-for_window [class="^.*"] border pixel 1
 exec_always --no-startup-id while [[ "$DISPLAY" != ":0" ]]; do echo "wait"; done; xrandr --output eDP-1 --scale 1.7x1.7
 exec_always --no-startup-id nitrogen --set-auto ~/.local/share/wallpapers/arch.png
-exec_always --no-startup-id kdeconnect-indicator&
+exec_always --no-startup-id kdeconnect-indicator
+exec_always --no-startup-id killall mpd; mpd
+exec_always --no-startup-id xrdb $HOME/.Xresources
+exec_always --no-startup-id eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
+exec_always --no-startup-id killall parcellite; parcellite
+exec_always --no-startup-id kilall /usr/lib/notification-daemon-1.0/notification-daemon; /usr/lib/notification-daemon-1.0/notification-daemon
+
+#############################
+### settings for i3-gaps: ###
+#############################
+
+# Set inner/outer gaps
+gaps inner 5
+gaps outer 5
+
+# Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
+# gaps inner|outer current|all set|plus|minus <px>
+# gaps inner all set 10
+# gaps outer all plus 5
+
+# Smart gaps (gaps used if only more than one container on the workspace)
+# smart_gaps on
+
+# Smart borders (draw borders around container only if it is not the only container on this workspace)
+# on|no_gaps (on=always activate and no_gaps=only activate if the gap size to the edge of the screen is 0)
+# smart_borders on
+
+for_window [class="^.*"] border pixel 2
+for_window [title="Open Database File"] floating enable; resize shrink width 10000px; resize grow width 500px; resize shrink height 10000px; resize grow height 500px;
+# floating pop up automatically
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+# Press $mod+Shift+g to enter the gap mode.
+# Choose o or i for modifying outer/inner gaps.
+# Press one of + / - (in-/decrement for current workspace)
+# or 0 (remove gaps for current workspace). If you also press Shift
+# with these keys, the change will be global for all workspaces.
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}

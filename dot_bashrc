@@ -9,6 +9,7 @@ PS1='[\u@\h \W]\$ '
 
 # Hope bash will not be necessary 
 test -f ~/.aliases && source ~/.aliases
+test -f ~/.local_aliases && source ~/.local_aliases
 
 export GOPATH="$HOME/go"
 export PATH=$PATH:/usr/local/go/bin
@@ -23,3 +24,5 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 
 export EDITOR=nvim
 export TERM=xterm-256color
+
+eval "$(starship init bash)"

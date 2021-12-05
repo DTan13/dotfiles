@@ -11,7 +11,7 @@ This script assumes you have either `apt` , `pacman` or `yum` installed on your 
 ### Defaults
 - CLI
 	- `zsh`
-	- `neovim`
+	- `vim`
 	- `tmux`
 	- `gitui`
 	- `gdb`
@@ -21,7 +21,6 @@ This script assumes you have either `apt` , `pacman` or `yum` installed on your 
 - GUI
 	- `qtile`
 	- `i3`
-	- `lxterminal`
 	- `alacritty`
 	- `zathura`
 
