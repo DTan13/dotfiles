@@ -10,9 +10,6 @@ if [ "$(command -v apt)" ]; then
 
 	sudo apt install -y zsh tmux
 
-	mkdir ~/.tmux ~/.tmux/plugins
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
 	echo "Installing starship"
 	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 
@@ -30,9 +27,6 @@ elif [ "$(command -v pacman)" ]; then
 
 	sudo pacman -Sy --noconfirm zsh tmux
 
-	mkdir ~/.tmux ~/.tmux/plugins
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-
 	echo "Installing starship"
 	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 
@@ -49,9 +43,6 @@ elif [ "$(command -v yum)" ]; then
 	echo "Installing packages using yum"
 
 	sudo yum install -y zsh tmux
-
-	mkdir ~/.tmux ~/.tmux/plugins
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 	echo "Installing starship"
 	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
