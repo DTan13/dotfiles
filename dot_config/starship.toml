@@ -1,0 +1,68 @@
+# Inserts a blank line between shell prompts
+add_newline = false
+
+[line_break]
+disabled = true
+
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+error_symbol = "[➜](bold red)"
+
+[cmd_duration]
+min_time = 1_000  # Show command duration over 10,000 milliseconds (=10 sec)
+format = "<[$duration]($style)>"
+
+[directory]
+truncation_length = 1
+format = "@[$path]($style)[$lock_symbol]($lock_style)"
+home_symbol = "home"
+
+[git_branch]
+format = "&[$branch]($style)"
+style = "bold yellow"
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+[git_state]
+format = '[\($state($progress_current/$progress_total)\)]($style)'
+
+[git_status]
+conflicted = "><"
+ahead = ">×${count}"
+behind = "<×${count}"
+untracked = "?×${count}"
+stashed = "^"
+modified = "!×${count}"
+staged = "*×${count}"
+deleted = "x×${count}"
+diverged = "<>×${count}"
+renamed = "r×${count}"
+style = "bright-white"
+format = "# $all_status$ahead_behind "
+
+[hostname]
+ssh_only = false
+format = ":[$hostname]($style)"
+trim_at = "-"
+style = "bold dimmed white"
+disabled = false 
+
+[memory_usage]
+format = "$symbol[${ram}( | ${swap})]($style) "
+threshold = 50
+style = "bold dimmed white"
+disabled = false
+
+[package]
+disabled = true
+
+[username]
+style_user = "bold dimmed blue"
+format = ">_[$user]($style_user)"
+show_always = true
+
+[status]
+format = "[$status]($style)"
+disabled = false
