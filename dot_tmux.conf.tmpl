@@ -3,9 +3,13 @@ set -g @plugin 'dracula/tmux'
 set -g @dracula-show-powerline true
 set -g @dracula-show-flags true
 
+{{- if eq .chezmoi.osRelease.id "arch" }}
+
 unbind-key C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
+
+{{- end }}
 
 #the default is 5, it can accept any number
 set -g @dracula-refresh-rate 60
@@ -27,7 +31,7 @@ set -g @dracula-plugins "battery time"
 set -g @dracula-cpu-usage-label "L"
 set -g @dracula-ram-usage-label "R"
 set -g @dracula-show-timezone false
-set -g @dracula-day-month true
+# set -g @dracula-day-month true
 
 # Enable mouse mode (tmux 2.1 and above)
 set -g mouse on
