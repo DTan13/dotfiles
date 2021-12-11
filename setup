@@ -13,7 +13,7 @@ if [ "$(command -v apt)" ]; then
 	curl -sLf https://spacevim.org/install.sh | bash
 
 	echo "Installing starship"
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+	sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
 
 	echo "Updating dotfiles"
 	cd ~
@@ -31,7 +31,7 @@ elif [ "$(command -v pacman)" ]; then
 	curl -sLf https://spacevim.org/install.sh | bash
 
 	echo "Installing starship"
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+	sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
 
 	echo "Updating dotfiles"
 	cd ~
@@ -49,7 +49,7 @@ elif [ "$(command -v yum)" ]; then
 	curl -sLf https://spacevim.org/install.sh | bash
 	
 	echo "Installing starship"
-	sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+	sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- -y
 
 	echo "Updating dotfiles"
 	cd ~
