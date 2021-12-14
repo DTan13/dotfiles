@@ -27,5 +27,3 @@ This script assumes you have either `apt` , `pacman` or `yum` installed on your 
 
 #### Tips
 - If after installing `oh-my-zsh`, you are stuck in `zsh`. Just `exit`.
-- While running `nvim` for the first time you have to run `:PlugUpdate` or `:PlugInstall` to fetch all plugins.
-- Same for `tmux` , to fetch plugins use `<prefix>`+`I`.

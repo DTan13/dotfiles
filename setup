@@ -27,7 +27,7 @@ elif [ "$(command -v pacman)" ]; then
 	echo "pacman is installed"
 	echo "Installing packages using pacman"
 
-	sudo pacman -Sy --noconfirm zsh vim tmux
+	sudo pacman -Sy --noconfirm zsh vim tmux --needed
 	curl -sLf https://spacevim.org/install.sh | bash
 
 	echo "Installing starship"

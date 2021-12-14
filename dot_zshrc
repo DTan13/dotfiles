@@ -6,6 +6,7 @@ zstyle ':autocomplete:*' min-input 1
 
 test -f ~/.aliases && source ~/.aliases
 test -f ~/.local_aliases && source ~/.local_aliases
+
 test -f ~/.config/zsh/zsh-autosuggestions.zsh && source ~/.config/zsh/zsh-autosuggestions.zsh
 test -f ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh && source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 test -f ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh && source ~/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh

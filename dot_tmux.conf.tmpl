@@ -1,9 +1,10 @@
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'dracula/tmux'
-set -g @dracula-show-powerline true
 set -g @dracula-show-flags true
 
 {{- if eq .chezmoi.osRelease.id "arch" }}
+
+set -g @dracula-show-powerline true
 
 unbind-key C-b
 set-option -g prefix C-a
@@ -22,7 +23,7 @@ set -g @dracula-show-left-icon session
 set -g @dracula-border-contrast true
 
 # available plugins: battery, cpu-usage, gpu-usage, ram-usage, network, network-bandwith, weather, time
-set -g @dracula-plugins "battery time"
+set -g @dracula-plugins "cpu-usage ram-usage battery time"
 
 # available colors: white, gray, dark_gray, light_purple, dark_purple, cyan, green, orange, red, pink, yellow
 # set -g @dracula-[plugin-name]-colors "[background] [foreground]"
@@ -39,5 +40,14 @@ set -g @dracula-day-month true
 # set -g mouse-select-window on
 # set -g mouse-select-pane on
 # set -g mouse-resize-pane on
+
+# switch panes and windows using Alt-arrow without prefix
+bind -n M-End select-window -n
+bind -n M-Home select-window -p
+
+bind -n M-Left select-pane -L  # move left
+bind -n M-Down select-pane -D  # move down
+bind -n M-Up select-pane -U  # move up
+bind -n M-Right select-pane -R  # move right
 
 run '~/.tmux/plugins/tpm/tpm'
