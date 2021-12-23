@@ -45,24 +45,12 @@ bindsym $mod+Return exec alacritty
 bindsym $mod+q kill
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -236,6 +224,9 @@ bindsym $mod+Shift+m scratchpad show
 # Apps
 bindsym $mod+w exec brave
 bindsym $mod+e exec pcmanfm
+bindsym $mod+t exec xfce4-terminal --drop-down
+bindsym $mod+l exec --no-startup-id i3lock-fancy -- maim
+bindsym $mod+Shift+v exec code
 
 # Screenshot
 bindsym Print exec ~/.scripts/screenshot full 
@@ -260,14 +251,15 @@ exec_always --no-startup-id xrdb $HOME/.Xresources
 exec_always --no-startup-id eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
 exec_always --no-startup-id killall parcellite; parcellite
 exec_always --no-startup-id kilall /usr/lib/notification-daemon-1.0/notification-daemon; /usr/lib/notification-daemon-1.0/notification-daemon
+# exec_always --no-startup-id killall xsnow; xsnow -nomenu
 
 #############################
 ### settings for i3-gaps: ###
 #############################
 
 # Set inner/outer gaps
-gaps inner 5
-gaps outer 5
+gaps inner 0
+gaps outer 0
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>

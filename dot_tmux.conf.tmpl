@@ -22,8 +22,17 @@ set -g @dracula-show-left-icon session
 # set -g @dracula-left-icon-padding 1
 set -g @dracula-border-contrast true
 
+{{- if eq .chezmoi.osRelease.id "arch" }}
+
 # available plugins: battery, cpu-usage, gpu-usage, ram-usage, network, network-bandwith, weather, time
 set -g @dracula-plugins "cpu-usage ram-usage battery time"
+
+{{ else }}
+
+# available plugins: battery, cpu-usage, gpu-usage, ram-usage, network, network-bandwith, weather, time
+set -g @dracula-plugins "cpu-usage ram-usage time"
+
+{{- end }}
 
 # available colors: white, gray, dark_gray, light_purple, dark_purple, cyan, green, orange, red, pink, yellow
 # set -g @dracula-[plugin-name]-colors "[background] [foreground]"
