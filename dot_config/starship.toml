@@ -1,5 +1,17 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$memory_usage\
+$character"""
+
 # Inserts a blank line between shell prompts
 add_newline = false
+command_timeout = 1000
 
 [line_break]
 disabled = true
@@ -18,29 +30,25 @@ format = "@[$path]($style)[$lock_symbol]($lock_style)"
 home_symbol = "home"
 
 [git_branch]
-format = "&[$branch]($style)"
+format = "<[$branch]($style)"
 style = "bold yellow"
-
-[git_commit]
-commit_hash_length = 8
-style = "bold white"
 
 [git_state]
 format = '[\($state($progress_current/$progress_total)\)]($style)'
 
 [git_status]
-conflicted = "><"
-ahead = ">×${count}"
-behind = "<×${count}"
-untracked = "?×${count}"
-stashed = "^"
-modified = "!×${count}"
-staged = "*×${count}"
-deleted = "x×${count}"
-diverged = "<>×${count}"
-renamed = "r×${count}"
+conflicted = ":con"
+ahead = ":push×${count}"
+behind = ":pull×${count}"
+untracked = ":?×${count}"
+stashed = ":^"
+modified = ":*×${count}"
+staged = ":+×${count}"
+deleted = ":-×${count}"
+diverged = ":div×${count}"
+renamed = ":~×${count}"
 style = "bright-white"
-format = "<<$all_status$ahead_behind>>"
+format = "$all_status$ahead_behind>"
 
 [hostname]
 ssh_only = false
@@ -50,7 +58,7 @@ style = "bold dimmed white"
 disabled = false 
 
 [memory_usage]
-format = "$symbol[${ram}( | ${swap})]($style) "
+format = " [${ram}( | ${swap})]($style) "
 threshold = 50
 style = "bold dimmed white"
 disabled = false
