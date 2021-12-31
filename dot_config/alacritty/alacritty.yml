@@ -90,7 +90,7 @@ font:
     style: "Medium Italic"
 
   # Point size of the font
-  size: 9
+  size: 8
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -510,8 +510,8 @@ debug:
 #
 # You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
 # Entries in shell.args are passed unmodified as arguments to the shell.
-# shell:
-# program: /usr/bin/zsh
+shell:
+  program: /usr/bin/tmux
 # args:
 #   - --command=tmux
 
