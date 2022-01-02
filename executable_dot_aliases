@@ -2,3 +2,8 @@ alias x="exit"
 alias q="exit"
 alias c="clear"
 alias ls="ls --color=auto"
+alias l="ls -A"
+alias ll="ls -alF"
+alias rm="rm -i"
+alias mv="mv -i"
+

@@ -10,10 +10,8 @@
 # set spacevim theme. by default colorscheme layer is not loaded,
 # if you want to use more colorscheme, please load the colorscheme
 # layer
-# colorscheme = "gruvbox"
-# colorscheme_bg = "dark"
-# Disable guicolors in basic mode, many terminal do not support 24bit
-# true colors
+colorscheme = "SpaceVim"
+colorscheme_bg = "dark"
 enable_guicolors = true
 # Disable statusline separator, if you want to use other value, please
 # install nerd fonts
@@ -23,8 +21,7 @@ enable_tabline_filetype_icon = true
 enable_statusline_mode = false
 default_indent = 4
 expand_tab = true
-colorscheme = "dracula"
-colorscheme_bg = "dark"
+autocomplete_method = "completor"
 
 # Enable autocomplete layer
 [[layers]]
@@ -38,29 +35,21 @@ name = "fzf"
 [[layers]]
 name = "tools"
 
-[[custom_plugins]]
-repo = "dracula/vim"
-name = "dracula"
-
-[[custom_plugins]]
-repo = "voldikss/vim-floaterm"
-name = "floaterm"
-
-[[custom_plugins]]
-repo = "christoomey/vim-tmux-navigator"
-name = "vim-tmux-navigator"
-
-[[layers]]
-name = "lang#javascript"
-format_on_save = true
-
 [[layers]]
 name = "lang#python"
-format_on_save = true
 
 [[layers]]
 name = "lsp"
+filetypes = [
+	"go",
+	"python",
+	"c",
+	"cpp",
+	"sh"
+]
+enabled_clients = ['pyright']
 
+#run :GoInstallBinaries inside vim
 [[layers]]
 name = "lang#go"
 
@@ -79,6 +68,7 @@ name = "lang#sh"
 [[layers]]
 name = "sudo"
 
+# clang
 [[layers]]
 name = 'lang#c'
 enable_clang_syntax_highlight = true

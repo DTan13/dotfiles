@@ -26,3 +26,29 @@ stripComponents = 1
 type = "file"
 url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
 exact = true
+
+[".aliases.d/golang.plugin.zsh"]
+type = "file"
+url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/golang/golang.plugin.zsh"
+exact = true
+
+[".aliases.d/systemd.plugin.zsh"]
+type = "file"
+url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/systemd/systemd.plugin.zsh"
+exact = true
+
+[".aliases.d/git.plugin.zsh"]
+type = "file"
+url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/git/git.plugin.zsh"
+exact = true
+
+[".aliases.d/kubectl.plugin.zsh"]
+type = "file"
+url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/kubectl/kubectl.plugin.zsh"
+exact = true
+
+[".aliases.d/systemadmin.plugin.zsh"]
+type = "file"
+url = "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/systemadmin/systemadmin.plugin.zsh"
+exact = true
+

@@ -1,28 +1,40 @@
-#
-# ~/.bashrc
-#
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000000
+SAVEHIST=10000000
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
+ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 
-PS1='[\u@\h \W]\$ '
+setopt autocd 
 
-test -f ~/.aliases && source ~/.aliases
-test -f ~/.local_aliases && source ~/.local_aliases
+test -f $HOME/.aliases && source $HOME/.aliases
+test -f $HOME/.local_aliases && source $HOME/.local_aliases
+
+{{- if eq .chezmoi.osRelease.id "arch" }}
+zstyle ':autocomplete:*' min-input 1
+test -f $HOME/.config/zsh/zsh-autosuggestions.zsh && source $HOME/.config/zsh/zsh-autosuggestions.zsh
+test -f ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh && source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+test -f $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh && source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+{{- end}}
+
+for i in $(ls $HOME/.aliases.d/); do
+source $HOME/.aliases.d/$i
+done
 
 export GOPATH="$HOME/go"
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/bin
-export PATH=$PATH:~/go/bin
-export PATH=$PATH:~/.local/bin
-export PATH=$PATH:~/.yarn/bin
-export PATH=$PATH:~/bin
-export PATH=$PATH:~/.cargo/bin
+export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.yarn/bin
+export PATH=$PATH:$HOME/bin
 
 export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 
+export VISUAL=vim
 export EDITOR=vim
 export TERM=xterm-256color
+
+export HISTCONTROL=ignoreboth
 
 printf %b '\e[40m' '\e[8]' # set default background to color 0 'dracula-bg'
 printf %b '\e[37m' '\e[8]' # set default foreground to color 7 'dracula-fg'
@@ -43,4 +55,4 @@ printf %b '\e]PE97e2ff'    # redefine 'bright-cyan'    as '#97e2ff'
 printf %b '\e]P7f8f8f2'    # redefine 'white'          as 'dracula-fg'
 printf %b '\e]PFffffff'    # redefine 'bright-white'   as '#ffffff'
 
-eval "$(starship init bash)"
+eval "$(starship init zsh)"
