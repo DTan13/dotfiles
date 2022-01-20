@@ -250,7 +250,8 @@ exec_always --no-startup-id killall mpd; mpd
 exec_always --no-startup-id xrdb $HOME/.Xresources
 exec_always --no-startup-id eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
 exec_always --no-startup-id killall parcellite; parcellite
-exec_always --no-startup-id kilall /usr/lib/notification-daemon-1.0/notification-daemon; /usr/lib/notification-daemon-1.0/notification-daemon
+exec_always --no-startup-id kilall dunst; dunst
+exec_always --no-startup-id numlockx
 # exec_always --no-startup-id killall xsnow; xsnow -nomenu
 
 #############################
