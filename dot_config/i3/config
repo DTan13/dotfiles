@@ -142,7 +142,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec ~/.config/i3/powermenu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -171,7 +171,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Special system mode
-set $mode_system System (l) lock, (e) logout, (s) suspend, (p) poweroff, (r) reboot
+set $mode_system System (l) Lock (e) LogOut (s) Suspend (p) PowerOff (r) Reboot
 mode "$mode_system" {
   bindsym l exec --no-startup-id i3lock-fancy -- maim, mode "default"
   bindsym e exec --no-startup-id i3-msg exit, mode "default"
@@ -184,20 +184,47 @@ mode "$mode_system" {
 }
 bindsym $mod+Alt_R mode "$mode_system"
 
+# blugon mode
+set $blugon Blugon (+) Red (-) Blue (0) Reset
+mode "$blugon" {
+  bindsym plus exec --no-startup-id blugon --setcurrent="-200"
+  bindsym minus exec --no-startup-id blugon --setcurrent="+200"
+  bindsym 0 exec --no-startup-id blugon --setcurrent="6600"
+  # back to normal
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+b mode "$blugon"
+
+# mpc mode
+set $mpc MPC (t) Play/Pause (s) Stop (r) Random (l) Repeat (n) Next (p) Prev
+mode "$mpc" {
+  bindsym t exec --no-startup-id mpc toggle
+  bindsym s exec --no-startup-id mpc stop
+  bindsym r exec --no-startup-id mpc random
+  bindsym l exec --no-startup-id mpc repeat
+  bindsym n exec --no-startup-id mpc next
+  bindsym p exec --no-startup-id mpc prev
+  # back to normal
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+Control+m mode "$mpc"
+
 # The middle button and a modifer over any part of the window kills the window
 bindsym --whole-window $mod+button2 kill
 
 # The right button toggles floating
 bar {
-  bindsym button2 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
-  bindsym button3 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
+  bindsym button2 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
+  bindsym button3 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
 
-  status_command ~/.scripts/i3net.sh
+  status_command ~/.config/i3status/i3status.sh
   separator_symbol "|"
   position bottom
   output primary
   tray_output primary
-  font pango:Source Code Pro Medium 13
+  font pango:Source Code Pro Medium 14
   strip_workspace_numbers yes
   colors {
     background #282A36
@@ -222,8 +249,9 @@ bindsym $mod+m move scratchpad
 bindsym $mod+Shift+m scratchpad show
 
 # Apps
-bindsym $mod+w exec brave
+bindsym $mod+w exec vivaldi-stable
 bindsym $mod+e exec pcmanfm
+bindsym $mod+Shift+p exec pycharm
 bindsym $mod+t exec xfce4-terminal --drop-down
 bindsym $mod+l exec --no-startup-id i3lock-fancy -- maim
 bindsym $mod+Shift+v exec code
@@ -240,12 +268,13 @@ client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
 client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
-bindsym $mod+Shift+d exec "dmenu_run -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-13' -p 'Arch Linux'"
-bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show drun -sidebar-mode -columns 3 -font 'Source Code Pro Medium 18'
+bindsym $mod+Shift+d exec "dmenu_run -b -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-15' -p 'Arch Linux'"
+bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
 
-exec_always --no-startup-id while [[ "$DISPLAY" != ":0" ]]; do echo "wait"; done; xrandr --output eDP-1 --scale 1.8x1.8
+# exec_always --no-startup-id while [[ "$DISPLAY" != ":0" ]]; do echo "wait"; done; xrandr --output eDP-1 --scale 1.8x1.8
 exec_always --no-startup-id nitrogen --set-auto ~/.local/share/wallpapers/arch.png
 exec_always --no-startup-id kdeconnect-indicator
+exec_always --no-startup-id /lib/kdeconnectd
 exec_always --no-startup-id killall mpd; mpd
 exec_always --no-startup-id xrdb $HOME/.Xresources
 exec_always --no-startup-id eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
@@ -260,7 +289,7 @@ exec_always --no-startup-id numlockx
 
 # Set inner/outer gaps
 gaps inner 0
-gaps outer 0
+gaps outer 5
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
@@ -276,12 +305,15 @@ gaps outer 0
 
 # floating pop up automatically
 for_window [class="^.*"] border pixel 2
-for_window [title="Open Database File"] floating enable; resize shrink width 10000px; resize grow width 500px; resize shrink height 10000px; resize grow height 500px;
-for_window [class="Xfce4-terminal" instance="xfce4-terminal"] floating enable; resize shrink width 10000px; resize grow width 700px; resize shrink height 10000px; resize grow height 700px;
-for_window [class="Thunderbird" instance="Msgcompose"] floating enable; resize shrink width 10000px; resize grow width 500px; resize shrink height 10000px; resize grow height 500px;
-for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable; resize shrink width 10000px; resize grow width 500px; resize shrink height 10000px; resize grow height 500px;
+for_window [class="Xfce4-terminal" instance="xfce4-terminal"] floating enable; resize set 600 600;
+for_window [class="Thunderbird" instance="Msgcompose"] floating enable; resize set 600 600;
+for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable; resize set 500 500;
 for_window [window_role="task_dialog"] floating enable
 for_window [window_role="pop-up"] floating enable
+for_window [window_role="vlc-media-info"] floating enable
+for_window [title="win0"] floating enable
+for_window [title="Welcome to PyCharm"] floating enable
+for_window [title="Vivaldi"] floating enable
 
 # Auto Assign
 assign [class="browser"] $web
@@ -289,6 +321,8 @@ assign [class="browser"] $web
 assign [class="Thunderbird"] $social
 assign [class="Pcmanfm"] $files
 
+assign [class="Vivaldi-stable" instance="vivaldi-stable"] $web
+assign [class="firefox" instance="Navigator"] $web
 assign [class="firefox-developer-edition" instance="Navigator"] $web
 assign [class="Brave-browser" instance="brave-browser"] $web
 assign [class="Chromium" instance="chromium"] $web
@@ -313,7 +347,7 @@ assign [class="Vmware" instance="vmware"] $vm
 assign [class="Vmplayer" instance="vmplayer"] $vm
 
 assign [class="Code" instance="code"] $dev
-
+assign [class="jetbrains-pycharm"] $dev
 # Press $mod+Shift+g to enter the gap mode.
 # Choose o or i for modifying outer/inner gaps.
 # Press one of + / - (in-/decrement for current workspace)

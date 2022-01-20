@@ -43,7 +43,7 @@ volume master {
 }
 
 battery all {
-    format = "%status %percentage %remaining"
+    format = "%status %percentage"
 }
 
 load {
