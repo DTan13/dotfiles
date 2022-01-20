@@ -6,4 +6,4 @@ alias l="ls -A"
 alias ll="ls -alF"
 alias rm="rm -i"
 alias mv="mv -i"
-
+alias v="vim"

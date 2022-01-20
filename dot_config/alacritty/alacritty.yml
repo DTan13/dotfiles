@@ -360,10 +360,8 @@ key_bindings:
   - { key: N, mods: Command, action: SpawnNewInstance }
   - { key: Return, mods: Command, action: ToggleFullscreen }
 
-  - { key: Home, chars: "\x1bOH", mode: AppCursor }
-  - { key: Home, chars: "\x1b[H", mode: ~AppCursor }
-  - { key: End, chars: "\x1bOF", mode: AppCursor }
-  - { key: End, chars: "\x1b[F", mode: ~AppCursor }
+  - { key: Home, chars: "\x1b[1~" }
+  - { key: End, chars: "\x1b[4~" }
   - { key: Equals, mods: Command, action: IncreaseFontSize }
   - { key: Minus, mods: Command, action: DecreaseFontSize }
   - { key: Minus, mods: Command|Shift, action: ResetFontSize }

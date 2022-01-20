@@ -1,8 +1,21 @@
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
-
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+
+bindkey "\e[1;5D" backward-word
+bindkey "\e[1;5C" forward-word
+
+# ctrl-bs and ctrl-del
+bindkey "\e[3;5~" kill-word
+bindkey "\C-H"    backward-kill-word
+
+# del, home and end
+bindkey "\e[3~" delete-char
+bindkey "\e[1~" beginning-of-line
+bindkey "\e[4~" end-of-line
+
+export TERM=xterm-256color
 
 setopt autocd 
 
@@ -32,7 +45,6 @@ export FZF_DEFAULT_OPTS='--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f
 
 export VISUAL=vim
 export EDITOR=vim
-export TERM=xterm-256color
 
 export HISTCONTROL=ignoreboth
 

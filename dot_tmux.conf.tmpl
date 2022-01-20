@@ -8,6 +8,9 @@ set -g @dracula-show-powerline true
 unbind-key C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
+
+# Enable mouse mode (tmux 2.1 and above)
+set -g mouse on
 {{- end }}
 
 #the default is 5, it can accept any number
@@ -37,12 +40,6 @@ set -g @dracula-ram-usage-label "R"
 set -g @dracula-show-timezone false
 set -g @dracula-day-month true
 
-# Enable mouse mode (tmux 2.1 and above)
-# set -g mouse on
-## Enable mouse control (clickable windows, panes, resizable panes)
-# set -g mouse-select-window on
-# set -g mouse-select-pane on
-# set -g mouse-resize-pane on
 
 # switch panes and windows using Alt-arrow without prefix
 bind -n M-End select-window -n
