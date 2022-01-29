@@ -56,7 +56,6 @@ i3status | (read line && echo "$line" && read line && echo "$line" && read line 
   id=$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')
   name=$(xprop -id $id | awk '/_NET_WM_NAME/{$1=$2="";print}' | cut -d'"' -f2)
   name=${name//\\/\\\\}
-  name="${name//\"/\\\"} | "
 
   # mpc current Song
   MAX_LENGTH="40"
@@ -65,10 +64,9 @@ i3status | (read line && echo "$line" && read line && echo "$line" && read line 
   NAME_LENGTH="${#SONG}"
   if [ "$NAME_LENGTH" -gt "$MAX_LENGTH" ]; then
     SONG="${SONG:0:$MAX_LENGTH}"
-    SONG="$SONG | "
   fi
   STATE="$(echo $INFO | head -n 2)"
 
   # This is working so
-  echo ",[{\"full_text\":\"${name}${SONG}${rate}\" },${line#,\[}" || exit 1
+  echo ",[{\"full_text\":\"${name:0:60} | ${SONG} | ${rate}\" },${line#,\[}" || exit 1
 done)

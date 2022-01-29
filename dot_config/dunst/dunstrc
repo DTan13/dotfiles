@@ -39,7 +39,7 @@
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 5
+    notification_limit = 0
 
     ### Progress bar ###
 
@@ -211,7 +211,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/bin/dmenu -b -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-14' -p 'Dunst'
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/xdg-open
