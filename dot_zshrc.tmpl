@@ -24,8 +24,8 @@ test -f $HOME/.local_aliases && source $HOME/.local_aliases
 
 {{- if eq .chezmoi.osRelease.id "arch" }}
 zstyle ':autocomplete:*' min-input 1
-test -f $HOME/.config/zsh/zsh-autosuggestions.zsh && source $HOME/.config/zsh/zsh-autosuggestions.zsh
-test -f ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh && source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+test -n "$(tty | grep tty)" || test -f $HOME/.config/zsh/zsh-autosuggestions.zsh && source $HOME/.config/zsh/zsh-autosuggestions.zsh
+test -n "$(tty | grep tty)" || test -f ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh && source ~/.config/zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 test -f $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh && source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 {{- end}}
 

@@ -142,7 +142,7 @@ bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec ~/.config/i3/powermenu
+bindsym $mod+Shift+q exec ~/.config/i3/powermenu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -219,7 +219,7 @@ bar {
   bindsym button2 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
   bindsym button3 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
 
-  status_command bumblebee-status
+  status_command ~/.local/bin/bumblebee-status
   # status_command ~/.config/i3status/i3status.sh
   # separator_symbol "|"
   position bottom
@@ -250,8 +250,8 @@ bindsym $mod+m move scratchpad
 bindsym $mod+Shift+m scratchpad show
 
 # Apps
-bindsym $mod+w exec vivaldi-stable
-bindsym $mod+e exec pcmanfm
+bindsym $mod+w exec brave
+bindsym $mod+Shift+e exec pcmanfm
 bindsym $mod+Shift+p exec pycharm
 bindsym $mod+t exec xfce4-terminal --drop-down
 bindsym $mod+l exec --no-startup-id i3lock-fancy -- maim
@@ -316,9 +316,10 @@ for_window [window_role="vlc-media-info"] floating enable
 for_window [title="win0"] floating enable
 for_window [title="Welcome to PyCharm"] floating enable
 for_window [title="Vivaldi"] floating enable
-for_window [title="Rambox"] floating disable
-for_window [title="Rambox - Custom app"] floating enable
-
+for_window [window_role="browser-window"] floating enable
+for_window [title="^Rambox$"] floating disable
+for_window [class="Code" instance="code"] floating disable
+for_window [title="^Brave$"] floating enable
 # Auto Assign
 assign [class="browser"] $web
 #assign [class="Xfce4-terminal" instance="xfce4-terminal"] $term
