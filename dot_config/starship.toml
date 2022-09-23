@@ -26,15 +26,15 @@ format = "<[$duration]($style)>"
 
 [directory]
 truncation_length = 1
-format = "@[$path]($style)[$lock_symbol]($lock_style)"
+format = "/[$path]($style)[$lock_symbol]($lock_style)"
 home_symbol = "home"
 
 [git_branch]
-format = "<[$branch]($style)"
+format = "@[$branch]($style)"
 style = "bold yellow"
 
 [git_state]
-format = '[\($state($progress_current/$progress_total)\)]($style)'
+format = '<[\($state($progress_current/$progress_total)\)]($style)'
 
 [git_status]
 conflicted = ":con"
@@ -59,7 +59,7 @@ disabled = false
 
 [memory_usage]
 format = " [${ram}( | ${swap})]($style) "
-threshold = 50
+threshold = 75
 style = "bold dimmed white"
 disabled = false
 

@@ -70,25 +70,24 @@ font:
   normal:
     # family: Iosevka
     # style: Light
-    # family: "Fira Code"
-    family: "Source Code Pro Semibold"
+    family: "Fira Code"
+    # family: "Ubuntu Monospace"
     # style: Retina
 
   # The bold font face
   bold:
     # family: Iosevka
     # style: Medium
-    # family: "Fira Code"
-    family: "Source Code Pro Semibold"
+    family: "Fira Code"
+    # family: "Ubuntu Condensed"
 
   # The italic font face
   italic:
     # family: Iosevka
     # style: "Light Italic"
     # style: "Light Oblique"
-    # family: "Fira Code"
-    family: "Source Code Pro"
-    style: "Medium Italic"
+    family: "Fira Code"
+    # family: "Ubuntu"
 
   # Point size of the font
   size: 8

@@ -21,7 +21,7 @@ enable_tabline_filetype_icon = true
 enable_statusline_mode = false
 default_indent = 4
 expand_tab = true
-autocomplete_method = "completor"
+autocomplete_method = "coc"
 
 # Enable autocomplete layer
 [[layers]]
@@ -44,8 +44,7 @@ filetypes = [
 	"go",
 	"python",
 	"c",
-	"cpp",
-	"sh"
+	"cpp"
 ]
 enabled_clients = ['pyright']
 
@@ -57,6 +56,9 @@ name = "lang#go"
 name = "git"
 
 [[layers]]
+name = 'VersionControl'
+
+[[layers]]
 name = "checkers"
 
 [[layers]]
@@ -65,10 +67,10 @@ name = "debug"
 [[layers]]
 name = "lang#sh"
 
-[[layers]]
-name = "sudo"
-
 # clang
 [[layers]]
 name = 'lang#c'
 enable_clang_syntax_highlight = true
+
+[[custom_plugins]]
+	repo = 'wakatime/vim-wakatime'

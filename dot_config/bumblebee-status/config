@@ -1,5 +1,5 @@
 [core]
-modules = title,pomodoro,mpd,cpu,memory,nic,network_traffic,datetime,battery,brightness,amixer,blugon,dunst
+modules = title,cpu,memory,nic,network_traffic,datetime,battery,brightness,amixer,blugon,uptime
 theme = iceberg-dark-powerline
 
 [module-parameters]
@@ -7,23 +7,16 @@ interval=1
 cpu.warning=50
 cpu.critical=70
 
-title.max=32
+title.max=40
 title.short=true
 
-mpd.layout=mpd.prev mpd.toggle mpd.next mpd.shuffle mpd.repeat
-
-datetime.format=%a %d-%m %H:%M
-
-memory.warning=70
-memory.critical=85
-
-pomodoro.work=58
-pomodoro.break=2
+datetime.format=%a %d-%m %H:%M:%S
 
 nic.exclude=lo,virbr,docker,vboxnet,veth,vmnet,br
 nic.include=eno,enp,ens,enx,eth,wlan,wlp
 nic.states=^down
 
-traffic.exclude=lo,virbr,docker,vboxnet,veth,vmnet,br
+memory.warning=80
+memory.critical=90
 
-blugon.step=200
+amixer.percent_change=2

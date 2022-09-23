@@ -24,12 +24,12 @@ font pango:DejaVu Sans Mono 12
 
 # xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
 # screen before suspend. Use loginctl lock-session to lock your screen.
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock-fancy -- maim
+exec --no-startup-id xset s 600 && xss-lock --transfer-sleep-lock -- i3lock-fancy -- maim
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
@@ -39,7 +39,7 @@ popup_during_fullscreen smart
 workspace_auto_back_and_forth yes
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
 bindsym $mod+q kill
@@ -64,6 +64,7 @@ bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
+bindsym $mod+z fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -84,16 +85,16 @@ bindsym $mod+c focus child
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $term "1:Arch Linux"
+set $term "1:DEBIAN"
 set $web "2:WEB"
 set $dev "3:DEV"
-set $network "4:NETWORK"
+set $network "4:NOTES"
 set $vm "5:VM"
 set $system "6:SYSTEM"
 set $social "7:SOCIAL"
-set $files "8:FILES"
-set $office "9:OFFICE"
-set $media "10:MEDIA"
+set $office "8:OFFICE"
+set $media "9:MEDIA"
+set $files "10:FILES"
 
 # switch to workspace
 bindsym $mod+1 workspace $term
@@ -103,9 +104,9 @@ bindsym $mod+4 workspace $network
 bindsym $mod+5 workspace $vm
 bindsym $mod+6 workspace $system
 bindsym $mod+7 workspace $social
-bindsym $mod+8 workspace $files
-bindsym $mod+9 workspace $office
-bindsym $mod+0 workspace $media
+bindsym $mod+8 workspace $office
+bindsym $mod+9 workspace $media
+bindsym $mod+0 workspace $files
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $term
@@ -115,9 +116,9 @@ bindsym $mod+Shift+4 move container to workspace $network
 bindsym $mod+Shift+5 move container to workspace $vm
 bindsym $mod+Shift+6 move container to workspace $system
 bindsym $mod+Shift+7 move container to workspace $social
-bindsym $mod+Shift+8 move container to workspace $files
-bindsym $mod+Shift+9 move container to workspace $office
-bindsym $mod+Shift+0 move container to workspace $media
+bindsym $mod+Shift+8 move container to workspace $office
+bindsym $mod+Shift+9 move container to workspace $media
+bindsym $mod+Shift+0 move container to workspace $files
 
 # moves focused container to workspace; also changes to that workspace
 bindsym $mod+Control+1 move container to workspace $term; workspace $term
@@ -127,15 +128,20 @@ bindsym $mod+Control+4 move container to workspace $network; workspace $network
 bindsym $mod+Control+5 move container to workspace $vm; workspace $vm
 bindsym $mod+Control+6 move container to workspace $system; workspace $system
 bindsym $mod+Control+7 move container to workspace $social; workspace $social
-bindsym $mod+Control+8 move container to workspace $files; workspace $files
-bindsym $mod+Control+9 move container to workspace $office; workspace $office
-bindsym $mod+Control+0 move container to workspace $media; workspace $media
+bindsym $mod+Control+8 move container to workspace $office; workspace $office
+bindsym $mod+Control+9 move container to workspace $media; workspace $media
+bindsym $mod+Control+0 move container to workspace $files; workspace $files
 
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
+bindsym $mod+Tab focus left
+bindsym $mod+Shift+Tab workspace next
 
 bindsym $mod+Control+Right workspace next
 bindsym $mod+Control+Left workspace prev
+
+bindsym $mod+Control+Shift+Left exec --no-startup-id xrandr --output eDP-1 --rotate right
+bindsym $mod+Control+Shift+Right exec --no-startup-id xrandr --output eDP-1 --rotate left
+bindsym $mod+Control+Shift+Up exec --no-startup-id xrandr --output eDP-1 --rotate inverted
+bindsym $mod+Control+Shift+Down exec --no-startup-id xrandr --output eDP-1 --rotate normal
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -152,16 +158,16 @@ mode "resize" {
   # Pressing right will grow the window’s width.
   # Pressing up will shrink the window’s height.
   # Pressing down will grow the window’s height.
-  bindsym j resize shrink width 10 px or 10 ppt
-  bindsym k resize grow height 10 px or 10 ppt
-  bindsym l resize shrink height 10 px or 10 ppt
-  bindsym semicolon resize grow width 10 px or 10 ppt
+  bindsym j resize shrink width 4 px or 4 ppt
+  bindsym k resize grow height 4 px or 4 ppt
+  bindsym l resize shrink height 4 px or 4 ppt
+  bindsym semicolon resize grow width 4 px or 4 ppt
 
   # same bindings, but for the arrow keys
-  bindsym Left resize shrink width 10 px or 10 ppt
-  bindsym Down resize grow height 10 px or 10 ppt
-  bindsym Up resize shrink height 10 px or 10 ppt
-  bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Left resize shrink width 4 px or 4 ppt
+  bindsym Down resize grow height 4 px or 4 ppt
+  bindsym Up resize shrink height 4 px or 4 ppt
+  bindsym Right resize grow width 4 px or 4 ppt
 
   # back to normal: Enter or Escape or $mod+r
   bindsym Return mode "default"
@@ -216,7 +222,7 @@ bindsym --whole-window $mod+button2 kill
 
 # The right button toggles floating
 bar {
-  bindsym button2 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
+  bindsym button2 exec ~/.config/i3/powermenu
   bindsym button3 exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
 
   status_command ~/.local/bin/bumblebee-status
@@ -250,12 +256,16 @@ bindsym $mod+m move scratchpad
 bindsym $mod+Shift+m scratchpad show
 
 # Apps
-bindsym $mod+w exec brave
+bindsym $mod+w exec ~/.scripts/eval google-chrome-stable --force-device-scale-factor=1.1 --enable-features=WebUIDarkMode --force-dark-mode
 bindsym $mod+Shift+e exec pcmanfm
 bindsym $mod+Shift+p exec pycharm
 bindsym $mod+t exec xfce4-terminal --drop-down
 bindsym $mod+l exec --no-startup-id i3lock-fancy -- maim
-bindsym $mod+Shift+v exec code
+bindsym $mod+Shift+v exec ~/.scripts/eval code --force-device-scale-factor=1.1
+bindsym $mod+Control+s exec spotify --force-device-scale-factor=1.6
+bindsym $mod+Control+a exec pavucontrol
+bindsym $mod+Control+n exec notable
+bindsym $mod+x exec xfce4-terminal
 
 # Screenshot
 bindsym Print exec ~/.scripts/screenshot full 
@@ -269,20 +279,27 @@ client.urgent           #44475A #FF5555 #F8F8F2 #FF5555   #FF5555
 client.placeholder      #282A36 #282A36 #F8F8F2 #282A36   #282A36
 client.background       #F8F8F2
 
-bindsym $mod+Shift+d exec "dmenu_run -b -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-17' -p 'Arch Linux'"
+bindsym $mod+Shift+d exec "dmenu_run -b -nf '#F8F8F2' -nb '#282A36' -sb '#6272A4' -sf '#F8F8F2' -fn 'Source Code Pro Medium-16' -p 'Arch Linux'"
 bindsym $mod+d exec rofi -lines 12 -padding 18 -width 60 -location 0 -show run -font 'Source Code Pro Medium 18'
-bindsym $mod+Shift+k exec killall /usr/lib/kdeconnectd && /usr/lib/kdeconnectd
+bindsym $mod+Shift+b exec blugon
 # exec_always --no-startup-id while [[ "$DISPLAY" != ":0" ]]; do echo "wait"; done; xrandr --output eDP-1 --scale 1.8x1.8
-exec_always --no-startup-id nitrogen --set-auto ~/.local/share/wallpapers/arch.png
-exec_always --no-startup-id kdeconnect-indicator
-exec_always --no-startup-id /lib/kdeconnectd
+exec_always --no-startup-id nitrogen --set-auto ~/.scripts/wallpaper/debian.png
 exec_always --no-startup-id killall mpd; mpd
 exec_always --no-startup-id xrdb $HOME/.Xresources
-exec_always --no-startup-id eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)
 exec_always --no-startup-id killall parcellite; parcellite
 exec_always --no-startup-id kilall dunst; dunst
+#exec_always --no-startup-id /usr/lib/x86_64-linux-gnu/libexec/kdeconnectd
+#exec_always --no-startup-id kdeconnect-indicator
 exec_always --no-startup-id numlockx
+exec_always --no-startup-id eval $(dbus-launch --sh-syntax)
+exec_always --no-startup-id eval $(echo -n "" | /usr/bin/gnome-keyring-daemon --login)
+exec_always --no-startup-id eval $(/usr/bin/gnome-keyring-daemon --components=secrets --start)
 # exec_always --no-startup-id killall xsnow; xsnow -nomenu
+# exec_always --no-startup-id /home/dtan/custom_pkgs/activate-linux/activate-linux -s 1.8
+# exec_always --no-startup-id ~/.scripts/eval DeskTime --force-device-scale-factor=1.1
+exec_always --no-startup-id killall unclutter; unclutter
+# exec_always --no-startup-id a2ln 1999
+exec_always --no-startup-id echo "4000.0" > ~/.config/blugon/current; blugon
 
 #############################
 ### settings for i3-gaps: ###
@@ -290,7 +307,7 @@ exec_always --no-startup-id numlockx
 
 # Set inner/outer gaps
 gaps inner 0
-gaps outer 5
+gaps outer 0
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
@@ -306,7 +323,7 @@ gaps outer 5
 
 # floating pop up automatically
 for_window [class="^.*"] border pixel 2
-for_window [class="Xfce4-terminal" instance="xfce4-terminal"] floating enable; resize set 700 700;
+for_window [class="Xfce4-terminal" instance="xfce4-terminal"] floating enable
 for_window [class="Thunderbird" instance="Msgcompose"] floating enable
 for_window [class="Nm-connection-editor" instance="nm-connection-editor"] floating enable
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
@@ -315,45 +332,66 @@ for_window [window_role="pop-up"] floating enable
 for_window [window_role="vlc-media-info"] floating enable
 for_window [title="win0"] floating enable
 for_window [title="Welcome to PyCharm"] floating enable
-for_window [title="Vivaldi"] floating enable
 for_window [window_role="browser-window"] floating enable
-for_window [title="^Rambox$"] floating disable
+for_window [window_role="app"] floating enable
 for_window [class="Code" instance="code"] floating disable
 for_window [title="^Brave$"] floating enable
+for_window [class="Spotify"] move to workspace $media
+for_window [class="Notable" instance="notable"] floating disable
+for_window [title="Open Folder"] floating enable
+for_window [title="Open File"] floating enable
+for_window [class="beekeeper-studio" instance="beekeeper-studio"] floating disable
+for_window [class="jetbrains-goland" instance="jetbrains-goland"] floating enable
+for_window [class="jetbrains-idea" instance="jetbrains-idea"] floating enable
+for_window [class="jetbrains-webstorm" instance="jetbrains-webstorm"] floating enable
+for_window [class="jetbrains-datagrip" instance="jetbrains-datagrip"] floating enable
+for_window [class="tech.dtan13.App" instance="tech.dtan13.App"] floating enable
+for_window [class="Xfce4-terminal" instance="xfce4-terminal"] resize set 1200 1000
+for_window [instance="anki" class="Anki"] floating enable
+for_window [title="Hello!"] floating enable
+for_window [title="Save As"] floating enable
+
 # Auto Assign
 assign [class="browser"] $web
+assign [class="Anki"] $network
 #assign [class="Xfce4-terminal" instance="xfce4-terminal"] $term
 assign [class="Thunderbird"] $social
-assign [class="Pcmanfm"] $files
-
-assign [class="Vivaldi-stable" instance="vivaldi-stable"] $web
+#assign [class="Pcmanfm"] $files
 assign [class="firefox" instance="Navigator"] $web
 assign [class="firefox-developer-edition" instance="Navigator"] $web
 assign [class="Brave-browser" instance="brave-browser"] $web
 assign [class="Chromium" instance="chromium"] $web
 assign [class="Slack" instance="slack"] $network
-
+assign [class="Google-chrome" instance="google-chrome"] $web
 assign [class="mpv" instance="gl"] $media
 assign [class="Alacritty" instance="Alacritty"] $term
-assign [class="vlc" instance="vlc"] $media
+# assign [class="vlc" instance="vlc"] $media
 assign [class="Steam" instance="Steam"] $media
 assign [class="Lutris" instance="lutris"] $media
 
 assign [class="Thunderbird" instance="Mail"] $social
 assign [class="Thunderbird" instance="Msgcompose"] $social
 assign [class="rambox" instance="rambox"] $social
-assign [class="GNS3" instance="gns3"] $network
+assign [class="GNS3" instance="gns3"] $system
 assign [instance="org.pwmt.zathura" class="Zathura"] $office
-
+assign [instance="evince" class="Evince"] $office
 assign [instance="libreoffice-calc"] $office
 assign [instance="virt-manager" class="Virt-manager"] $vm
 assign [class="VirtualBox Manager" instance="virtualBox Manager"] $vm
 assign [class="VirtualBox Machine" instance="virtualBox Machine"] $vm
 assign [class="Vmware" instance="vmware"] $vm
 assign [class="Vmplayer" instance="vmplayer"] $vm
-
+assign [class="Notable" instance="notable"] $network
 assign [class="Code" instance="code"] $dev
 assign [class="jetbrains-pycharm"] $dev
+assign [class="beekeeper-studio" instance="beekeeper-studio"] $network
+assign [class="jetbrains-idea" instance="jetbrains-idea"] $dev
+assign [class="jetbrains-goland" instance="jetbrains-goland"] $dev
+assign [class="jetbrains-webstorm" instance="jetbrains-webstorm"] $dev
+assign [class="jetbrains-datagrip" instance="jetbrains-datagrip"] $dev
+assign [class="Vivaldi-stable" instance="vivaldi-stable"] $social
+assign [class="Geany" instance="geany"] $network
+
 # Press $mod+Shift+g to enter the gap mode.
 # Choose o or i for modifying outer/inner gaps.
 # Press one of + / - (in-/decrement for current workspace)
